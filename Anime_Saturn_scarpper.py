@@ -5,12 +5,12 @@ from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
+import mysql.connector
 import os
 import time
 
 def trova_pulsante_successivo(driver):
     try:
-        # Attendi che l'icona del pulsante successivo sia visibile
         pulsante_successivo = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.CSS_SELECTOR, 'i.bi.bi-arrow-right'))
         )
@@ -23,7 +23,6 @@ def trova_pulsante_successivo(driver):
 
 def trova_titolo(driver):
     try:
-        # Attendi che il titolo <h4> sia visibile e ottieni il testo
         titolo_elemento = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.CSS_SELECTOR, 'h4.text-white.mb-3'))
         )
@@ -31,11 +30,26 @@ def trova_titolo(driver):
     except TimeoutException:
         return "Titolo non trovato"
 
+# Connetti al database
+conn = mysql.connector.connect(
+    host="localhost",
+    user="estrapolatore",
+    password="password",  # Sostituisci con la password che hai configurato
+    database="anime"
+)
+cursor = conn.cursor()
+
+# Crea la tabella se non esiste
+cursor.execute("""
+    CREATE TABLE IF NOT EXISTS estrapolazioni (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        Url VARCHAR(255) NOT NULL,
+        titolo VARCHAR(255) NOT NULL
+    )
+""")
+
 # URL iniziale
 url = 'https://www.animesaturn.tv/watch?file=LmpYn3eOXjazj&server=0'
-
-# Percorso del file di output
-percorso_file = os.path.expandvars(r'C:\Users\%username%\Desktop\estrazionediprova.txt')
 
 # Opzioni per il browser
 firefox_options = Options()
@@ -48,39 +62,40 @@ selenium_service = Service(r'path\to\geckodriver')
 # Inizializza il driver di Selenium con Firefox
 driver = webdriver.Firefox(service=selenium_service, options=firefox_options)
 
-url_list = []
-
-with open(percorso_file, 'w') as file:
-    while True:
-        print("URL corrente:", url)
-        driver.get(url)
+while True:
+    print("URL corrente:", url)
+    driver.get(url)
+    
+    try:
+        # Attendi che la pagina si carichi completamente
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, "body")))
         
-        try:
-            # Attendi che la pagina si carichi completamente
-            WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, "body")))
-            
-            # Estrai il titolo
-            titolo = trova_titolo(driver)
-            print("Titolo estratto:", titolo)
+        # Estrai il titolo
+        titolo = trova_titolo(driver)
+        print("Titolo estratto:", titolo)
 
-            # Salva l'URL e il titolo nel file
-            file.write(f"{url} - {titolo}\n")
-            url_list.append((url, titolo))
+        # Inserisci l'URL e il titolo nel database
+        cursor.execute("INSERT INTO estrapolazioni (Url, titolo) VALUES (%s, %s)", (url, titolo))
+        conn.commit()  # Salva i dati nel database
 
-            # Trova il prossimo URL
-            url_successivo = trova_pulsante_successivo(driver)
+        # Trova il prossimo URL
+        url_successivo = trova_pulsante_successivo(driver)
 
-            if url_successivo:
-                if not url_successivo.startswith("https://www.animesaturn.tv"):
-                    url_successivo = "https://www.animesaturn.tv" + url_successivo
-                url = url_successivo
-            else:
-                print("Nessun pulsante 'Episodio Successivo' trovato.")
-                break
-        except TimeoutException:
-            print("La pagina non si è caricata in tempo.")
+        if url_successivo:
+            if not url_successivo.startswith("https://www.animesaturn.tv"):
+                url_successivo = "https://www.animesaturn.tv" + url_successivo
+            url = url_successivo
+        else:
+            print("Nessun pulsante 'Episodio Successivo' trovato.")
             break
+    except TimeoutException:
+        print("La pagina non si è caricata in tempo.")
+        break
 
-print("URL e titoli estratti salvati correttamente nel file:", percorso_file)
+print("URL e titoli estratti salvati correttamente nel database.")
 
+# Chiudi il database e il driver
+cursor.close()
+conn.close()
 driver.quit()
+
