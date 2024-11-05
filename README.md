@@ -43,7 +43,14 @@ Ecco i prossimi obiettivi per il progetto:
 1. Clona il repository:
    ```bash
    git clone https://github.com/tuo-username/anime-saturn-scrapper.git
-   cd anime-saturn-scrapper
+   cd anime-saturn-scrapperInstalla le librerie Python:
+2. Installa i prerequisiti
+   ```bash
+   pip install -r requirements.txt
+
+3. Configura il database MySQL utilizzando il file di configurazione.
+
+4. Esegui lo script di scraping e accedi all'interfaccia PHP per visualizzare i dati raccolti.
 
 
 ## Supporta il progetto
