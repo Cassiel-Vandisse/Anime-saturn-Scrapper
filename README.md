@@ -52,6 +52,9 @@ Ecco i prossimi obiettivi per il progetto:
 
 4. Esegui lo script di scraping e accedi all'interfaccia PHP per visualizzare i dati raccolti.
 
+## Licenza
+
+Questo progetto è concesso in licenza sotto la Licenza MIT. Vedi il file [LICENSE](LICENSE) per i dettagli.
 
 ## Supporta il progetto
 Se ti piace questo progetto e vuoi supportarlo, puoi offrirmi un caffè! ☕
