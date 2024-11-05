@@ -60,4 +60,4 @@ Questo progetto è concesso in licenza sotto la Licenza MIT. Vedi il file [LICEN
 ## Supporta il progetto
 Se ti piace questo progetto e vuoi supportarlo, puoi offrirmi un caffè! ☕
 
-[![Buy me a coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-donate-yellow?style=flat-square&logo=buy-me-a-coffee)](buymeacoffee.com/CassielVandisse)
+[![Buy me a coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-donate-yellow?style=flat-square&logo=buy-me-a-coffee)](https://buymeacoffee.com/CassielVandisse)
