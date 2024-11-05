@@ -43,7 +43,8 @@ Ecco i prossimi obiettivi per il progetto:
 1. Clona il repository:
    ```bash
    git clone https://github.com/tuo-username/anime-saturn-scrapper.git
-   cd anime-saturn-scrapperInstalla le librerie Python:
+   cd anime-saturn-scrapper
+
 2. Installa i prerequisiti
    ```bash
    pip install -r requirements.txt
