@@ -11,3 +11,9 @@
 <p>- Creazione di uno script che identifichi il file e lo scarichi in una posizione desiderata</p>
 <p>- Web console dove e API</p>
 <p>- Docke? Forse.</p>
+
+<h2>Prerequisiti</h2>
+<p>- Per la parte Python, attualmente è impostato per essere eseguito su Windows, con versione Python 3 e superiore</p>
+<p>  Prerequisiti di python: selenium | ysql.connector</p>
+<p>- Per la parte PHP, va benissimo qualsiasi webserver che supporti php</p>
+<p>- Database mysql | Vedi file database per la creazione della taballa e schema.</p>
