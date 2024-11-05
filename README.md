@@ -17,3 +17,8 @@
 <p>  Prerequisiti di python: selenium | ysql.connector</p>
 <p>- Per la parte PHP, va benissimo qualsiasi webserver che supporti php</p>
 <p>- Database mysql | Vedi file database per la creazione della taballa e schema.</p>
+
+## Supporta il progetto
+Se ti piace questo progetto e vuoi supportarlo, puoi offrirmi un caffè! ☕
+
+[![Buy me a coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-donate-yellow?style=flat-square&logo=buy-me-a-coffee)](buymeacoffee.com/CassielVandisse)
