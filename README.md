@@ -26,7 +26,7 @@ Ecco i prossimi obiettivi per il progetto:
 ## Prerequisiti
 
 ### Python
-- **Sistema operativo**: Windows
+- **Sistema operativo**: Windows [Non testato] && Linux / Debian 12 / Ubuntu 24.04
 - **Versione**: Python 3 o superiore
 - **Librerie necessarie**:  
   - `selenium`
